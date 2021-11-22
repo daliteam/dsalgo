@@ -22,11 +22,7 @@ function solution(dartResult) {
     
     for (let i =0; i<dartResult.length; i++) {
         if(dartResult[i] === '0'){
-            if(dartResult[i-1] && dartResult[i-1] === '1'){
-                score = 10;
-            } else {
-                score = 0;
-            } 
+            score = dartResult[i-1] && dartResult[i-1] === '1'? 10 : 0;
         }
         else if(Number(dartResult[i])){
             score = Number(dartResult[i]);
