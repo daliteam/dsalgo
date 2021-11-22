@@ -8,7 +8,7 @@ const setValue = {
 };
 
 const getScoresArr = (dartResult) => {
-  let scoresArr = [];
+  const scoresArr = [];
   let isLastDataStr = false;
 
   const length = dartResult.length;
