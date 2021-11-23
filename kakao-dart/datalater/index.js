@@ -1,8 +1,21 @@
-function solution(dartResult) {
-  const drArray = splitResult(dartResult);
-  const objs = drArray.map((dr) => objectify(dr));
+// === library
 
-  return scorefy(objs);
+function reduce(f) {
+  return function (acc, iter) {
+    if (!iter) acc = (iter = acc[Symbol.iterator]()).next().value;
+    for (const a of iter) acc = f(acc, a);
+    return acc;
+  };
+}
+
+function go(arg, ...fs) {
+  return reduce((arg, f) => f(arg))(arg, fs);
+}
+
+// === solution
+
+function solution(dartResult) {
+  return go(dartResult, splitResult, objectifyResult, scorize);
 }
 
 function testAll() {
@@ -35,7 +48,7 @@ function testProcess() {
   const drArray = splitResult(dartResult);
   const objs = drArray.map((dr) => objectify(dr));
 
-  const actual = scorefy(objs);
+  const actual = scorize(objs);
 
   assert(expected, actual);
 }
@@ -65,7 +78,7 @@ function testObjectify() {
   assert(expected, actual);
 }
 
-function testScorefy() {
+function testScorize() {
   const objectifieds = [
     { score: 1, bonus: 1, option: "" },
     { score: 2, bonus: 2, option: "*" },
@@ -74,7 +87,7 @@ function testScorefy() {
 
   const expected = 37;
 
-  const actual = scorefy(objectifieds);
+  const actual = scorize(objectifieds);
 
   assert(expected, actual);
 }
@@ -105,13 +118,11 @@ function objectify(dr) {
   };
 }
 
-const objectifieds = [
-  { score: 1, bonus: 1, option: "" },
-  { score: 2, bonus: 2, option: "*" },
-  { score: 3, bonus: 3, option: "" },
-];
+function scorize(objs) {
+  return calculateResult(objs).reduce((acc, cur) => acc + cur.total, 0);
+}
 
-function scorefy(objs) {
+function calculateResult(objs) {
   objs.forEach(({ score, bonus, option }, i) => {
     objs[i].total = Math.pow(score, bonus);
 
@@ -129,12 +140,16 @@ function scorefy(objs) {
     }
   });
 
-  return objs.reduce((acc, cur) => acc + cur.total, 0);
+  return objs;
+}
+
+function objectifyResult(arr) {
+  return arr.map(objectify);
 }
 
 // testProcess();
 // testSplitresult();
 // testTransBonus();
 // testObjectify();
-// testScorefy();
+// testScorize();
 testAll();
