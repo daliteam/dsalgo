@@ -1,9 +1,9 @@
 const setValue = {
-  S: (data) => data.toString(),
-  D: (data) => Math.pow(data, 2).toString(),
-  T: (data) => Math.pow(data, 3).toString(),
-  "*": (data) => (2 * data).toString(),
-  "#": (data) => (-1 * data).toString(),
+  S: (data) => data,
+  D: (data) => Math.pow(data, 2),
+  T: (data) => Math.pow(data, 3),
+  "*": (data) => 2 * data,
+  "#": (data) => -1 * data,
   "+": (strData, nextStrData) => strData + nextStrData,
 };
 
@@ -35,8 +35,5 @@ const getScoresArr = (dartResult) => {
 };
 
 const solution = (dartResult) => {
-  return getScoresArr(dartResult).reduce(
-    (acc, cur) => parseInt(acc) + parseInt(cur),
-    0
-  );
+  return getScoresArr(dartResult).reduce((acc, cur) => acc + parseInt(cur), 0);
 };
