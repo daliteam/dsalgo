@@ -12,12 +12,12 @@ function solution(bridge_length, weight, truck_weights) {
         
         if(totalWeight + truck_weights[0] > weight) {
             bridgeArr.push(0);
-            continue;
-        } 
-        totalWeight += truck_weights[0];
-        bridgeArr.push(truck_weights.shift());
+        }else{
+            totalWeight += truck_weights[0];
+            bridgeArr.push(truck_weights.shift());
+        }
     }
 
-    return answer+ bridge_length;
+    return answer+bridge_length;
 }
 
