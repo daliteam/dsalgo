@@ -1,5 +1,8 @@
 ## Daliteam Data structure &amp; Algorithm Study
 
+### 푼 문제 https://github.com/daliteam/dsalgo/wiki
+
+
 ## 일정
 
 - 월수금 오전 10시 디스코드에서
