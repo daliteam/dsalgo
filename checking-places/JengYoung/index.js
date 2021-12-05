@@ -12,6 +12,8 @@ const directions = [
 const check = (nx, ny, place) =>
   nx >= 0 && ny >= 0 && nx < 5 && ny < 5 && !(place[nx][ny] === "X");
 
+const checkPerson = (val) => val === "P";
+
 const bfs = (place) => {
   const q = [];
   const visited = Array.from({ length: place.length }, () =>
@@ -20,7 +22,7 @@ const bfs = (place) => {
 
   for (let i = 0; i < place.length; i += 1) {
     for (let j = 0; j < place[0].length; j += 1) {
-      q.push([i, j, 0, +(place[i][j] === "P"), deepCopy(visited)]);
+      q.push([i, j, 0, checkPerson(place[i][j]), deepCopy(visited)]);
       visited[i][j] = true;
     }
   }
@@ -35,7 +37,7 @@ const bfs = (place) => {
       const nx = x + dx;
       const ny = y + dy;
       if (check(nx, ny, place)) {
-        const isPerson = place[nx][ny] === "P" ? 1 : 0;
+        const isPerson = checkPerson(place[nx][ny]);
         if (isPerson && peopleCnt && !nowVisited[nx][ny]) return 0;
         q.push([nx, ny, cnt + 1, peopleCnt + isPerson, deepCopy(nowVisited)]);
       }
