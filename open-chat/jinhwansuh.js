@@ -1,14 +1,15 @@
 function solution(record) {
-  let answer = [];
+  const answer = [];
   let id = {};
 
   // 고유한 아이디를 찾는 로직
   for (const chatting of record) {
-    var userName = chatting.split(' ');
-    if (userName[0] == 'Enter') {
-      id[userName[1]] = userName[2];
-    } else if (userName[0] == 'Change') {
-      id[userName[1]] = userName[2];
+    const chattingArray = chatting.split(' ');
+    // chattingArray = [ 'Enter', 'uid1234', 'Muzi' ]
+    if (chattingArray[0] == 'Enter') {
+      id[chattingArray[1]] = chattingArray[2];
+    } else if (chattingArray[0] == 'Change') {
+      id[chattingArray[1]] = chattingArray[2];
     }
   }
 
@@ -16,12 +17,12 @@ function solution(record) {
   let message = '';
   for (const chatting of record) {
     message = '';
-    var userName = chatting.split(' ');
-    if (userName[0] == 'Enter') {
-      message = id[userName[1]] + '님이 들어왔습니다.';
+    const chattingArray = chatting.split(' ');
+    if (chattingArray[0] == 'Enter') {
+      message = id[chattingArray[1]] + '님이 들어왔습니다.';
       answer.push(message);
-    } else if (userName[0] == 'Leave') {
-      message = id[userName[1]] + '님이 나갔습니다.';
+    } else if (chattingArray[0] == 'Leave') {
+      message = id[chattingArray[1]] + '님이 나갔습니다.';
       answer.push(message);
     }
   }
