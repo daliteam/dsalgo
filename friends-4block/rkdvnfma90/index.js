@@ -34,7 +34,7 @@ function solution(m, n, board) {
       break;
     }
 
-    // 부실 곳은 'X'로 표시해 준다.
+    // 부실 곳은 ''로 표시해 준다.
     allSameIndexes.forEach(([i, j]) => {
       newBoard[i][j] = '';
       newBoard[i][j + 1] = '';
@@ -42,7 +42,7 @@ function solution(m, n, board) {
       newBoard[i + 1][j + 1] = '';
     });
 
-    // 'X'는 부셔야 하므로 위에 남아 있는 블록을 아래로 내려야 한다.
+    // ''는 부셔야 하므로 위에 남아 있는 블록을 아래로 내려야 한다.
     for (let i = m - 1; i > 0; i -= 1) {
       for (let j = 0; j < n; j += 1) {
         if (newBoard[i][j] !== '') {
@@ -59,7 +59,7 @@ function solution(m, n, board) {
     }
   }
 
-  // 'X'의 개수를 센다.
+  // ''의 개수를 센다.
   newBoard.forEach(board => {
     answer += board.filter(v => v === '').length;
   });
