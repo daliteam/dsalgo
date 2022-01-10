@@ -48,12 +48,12 @@ function solution(m, n, board) {
   while (equalBlockCheck(m, n, blockArr, checkArr)) {
     answer += equalBlockCheck(m, n, blockArr, checkArr);
 
-    // checkArr과 비교해서 아래에 -1이 없을때까지 이동(이동시, 현재위치는 null로 변경)
+    // 아래에 -1이 없을때까지 이동(이동시, 현재위치는 null로 변경)
     for (let i = 0; i < n; i++) {
       for (let j = m - 2; j > -1; j--) {
         if (blockArr[j][i] !== null) {
           let currentY = j;
-          while (currentY < m - 1 && checkArr[currentY + 1][i] === -1) {
+          while (currentY < m - 1 && blockArr[currentY + 1][i] === null) {
             blockArr[currentY + 1][i] = blockArr[currentY][i];
             blockArr[currentY][i] = null;
             currentY += 1;
