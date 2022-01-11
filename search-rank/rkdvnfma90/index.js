@@ -1,33 +1,27 @@
 function solution(info, query) {
   const answer = [];
+  const infos = info.map(infoValue => infoValue.split(' '));
+  const queries = query.map(queryValue =>
+    queryValue.split(' ').filter(queryValue => queryValue !== 'and')
+  );
 
-  query.forEach(value => {
-    const [language, field, career, foodAndPoint] = value.split(' and ');
-    const [food, point] = foodAndPoint.split(' ');
+  queries.forEach(q => {
+    const [language, field, career, food, point] = q;
+    const filtered = infos.filter(infoValue => {
+      const [infoLanguage, infoField, infoCareer, infoFood, infoPoint] =
+        infoValue;
 
-    let filtered = info.filter(infoValue => {
-      const [infoLanguage] = infoValue.split(' ');
-      return infoLanguage === language || language === '-';
-    });
+      if (
+        (infoLanguage === language || language === '-') &&
+        (infoField === field || field === '-') &&
+        (infoCareer === career || career === '-') &&
+        (infoFood === food || food === '-') &&
+        parseInt(infoPoint, 10) >= parseInt(point, 10)
+      ) {
+        return true;
+      }
 
-    filtered = filtered.filter(infoValue => {
-      const [, infoField] = infoValue.split(' ');
-      return infoField === field || field === '-';
-    });
-
-    filtered = filtered.filter(infoValue => {
-      const [, , infoCareer] = infoValue.split(' ');
-      return infoCareer === career || career === '-';
-    });
-
-    filtered = filtered.filter(infoValue => {
-      const [, , , infoFood] = infoValue.split(' ');
-      return infoFood === food || food === '-';
-    });
-
-    filtered = filtered.filter(infoValue => {
-      const [, , , , infoPoint] = infoValue.split(' ');
-      return parseInt(infoPoint, 10) >= parseInt(point, 10);
+      return false;
     });
 
     answer.push(filtered.length);
