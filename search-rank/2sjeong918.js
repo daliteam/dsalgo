@@ -1,8 +1,6 @@
 function solution(info, query) {
   let answer = [];
-  const infoArr = info.map((item) => {
-    return item.split(" ");
-  });
+  const infoArr = info.map((item) => item.split(" "));
   const queryArr = query.map((item) =>
     item.split(" ").filter((item) => item !== "and")
   );
