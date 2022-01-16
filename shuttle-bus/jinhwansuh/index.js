@@ -24,8 +24,6 @@ function solution(n, t, m, timetable) {
   const minuteTable = timetable.map((time) => stringTimetoMinute(time));
   minuteTable.sort((a, b) => a - b);
 
-  const a = minuteTable.filter((minute) => minute < 550);
-
   const busTimeTable = getBusTable(n, t);
 
   if (timetable.length < m) {
