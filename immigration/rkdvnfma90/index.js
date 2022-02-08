@@ -10,14 +10,14 @@ function solution(n, times) {
     let nowTime = Math.floor((minTime + maxTime) / 2);
     let count = 0;
 
-    sortedTimes.forEach(time => {
+    for (const time of sortedTimes) {
       count += Math.floor(nowTime / time);
 
       if (count >= n) {
         answer = Math.min(nowTime, answer);
-        return;
+        break;
       }
-    });
+    }
 
     if (count >= n) {
       maxTime = nowTime - 1;
