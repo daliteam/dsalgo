@@ -1,7 +1,5 @@
 const removeDuplicate = arr => {
-  return [...new Set(arr.join('@').split('@'))]
-    .map(v => v.split(','))
-    .map(v => v.map(a => a));
+  return [...new Set(arr.join('@').split('@'))].map(v => v.split(','));
 };
 
 const getPermutations = (arr, number) => {
