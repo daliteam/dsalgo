@@ -61,8 +61,8 @@ function solution(board) {
     return;
   }
 
-  dfs([1, 0], visitedArray, 100, 1, costArray, 0);
-  dfs([0, 1], visitedArray, 100, 0, costArray, 1);
+  dfs([1, 0], visitedArray, 100, 1);
+  dfs([0, 1], visitedArray, 100, 0);
 
   return answer.sort((a, b) => a - b)[0];
 }
