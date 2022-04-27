@@ -1,4 +1,5 @@
 // 경주로 건설
+
 function solution(board) {
   var answer = [];
 
@@ -15,7 +16,6 @@ function solution(board) {
     dx = [0, 1, 0, -1];
 
   function dfs([x, y], visited, cost, direction) {
-    direction = direction >= 4 ? 0 : direction;
     if (
       x < 0 ||
       y < 0 ||
@@ -26,10 +26,9 @@ function solution(board) {
     )
       return;
 
+    if (costArray[x][y] < cost) return;
     visited[x][y] = true;
     costArray[x][y] = cost;
-
-    if (costArray[x][y] < cost) return;
 
     if (x === board.length - 1 && y === board.length - 1) {
       answer.push(cost);
