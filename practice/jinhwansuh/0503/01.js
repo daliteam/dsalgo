@@ -1,27 +1,52 @@
-// 방금그곡
-
 const convertToMinute = (time) => {
   const [hour, minute] = time.split(':');
   return Number(hour) * 60 + Number(minute);
 };
 
-const findAll = (str, element) => {
-  const indices = [];
-  let index = str.indexOf(element);
-  while (index != -1) {
-    if (str[index + element.length] === '#') {
-      index = str.indexOf(element, index + 1);
-    } else {
-      index = str.indexOf(element, index);
-      return index;
-    }
-  }
-};
-
 function solution(m, musicinfos) {
+  const score = {
+    C: 'A',
+    'C#': 'B',
+    D: 'C',
+    'D#': 'D',
+    E: 'X',
+    F: 'Z',
+    'F#': 'G',
+    G: 'H',
+    'G#': 'I',
+    A: 'J',
+    'A#': 'K',
+    B: 'H',
+  };
+
   const answer = [];
   const infoArray = [];
   const musicArray = [];
+
+  let uniqueM = changeToUniqueString(m);
+
+  function changeToUniqueString(str) {
+    let temp = '';
+    for (let i = 0; i < str.length; i++) {
+      if (
+        str[i] === 'C' ||
+        str[i] === 'D' ||
+        str[i] === 'F' ||
+        str[i] === 'A' ||
+        str[i] === 'G'
+      ) {
+        if (str[i + 1] === '#') {
+          temp += score[str[i] + '#'];
+          i++;
+        } else {
+          temp += score[str[i]];
+        }
+      } else {
+        temp += score[str[i]];
+      }
+    }
+    return temp;
+  }
 
   musicinfos.forEach((info) => {
     const splitedInfo = info.split(',');
@@ -30,30 +55,28 @@ function solution(m, musicinfos) {
     const musicLength = music.replace(/#/g, '').length;
     const int = Math.ceil(playtime / musicLength);
 
-    infoArray.push(music.repeat(int).slice(0, playtime).repeat(2));
+    const copyMusic = music
+      .repeat(int)
+      .slice(0, playtime + (music.length - musicLength))
+      .repeat(m.length);
+
+    infoArray.push(changeToUniqueString(copyMusic));
     musicArray.push([name, playtime]);
   });
 
-  for (let i = 0; i < infoArray.length; i++) {
-    if (infoArray[i].includes(m)) {
-      const index = infoArray[i].indexOf(m);
+  // console.log(infoArray);
+  // console.log(musicArray);
 
-      if (m[m.length - 1] !== 'm') {
-        const idx = findAll(infoArray[i], m);
-        if (idx !== undefined) {
-          answer.push([...musicArray[i], idx]);
-        }
-      } else {
-        answer.push([...musicArray[i], index]);
-      }
+  for (let i = 0; i < infoArray.length; i++) {
+    if (infoArray[i].includes(uniqueM)) {
+      answer.push([...musicArray[i], infoArray[i].indexOf(uniqueM)]);
     }
   }
 
+  // console.log(answer)
+
   return answer.length > 0
     ? answer.sort((a, b) => {
-        if (a[1] === b[1]) {
-          return a[2] - b[2];
-        }
         return b[1] - a[1];
       })[0][0]
     : '(None)';
