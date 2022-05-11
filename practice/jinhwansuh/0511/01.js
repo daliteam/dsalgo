@@ -32,19 +32,11 @@ function solution(board) {
     }
 
     for (let i = 0; i < headDx.length; i++) {
-      // head;
-      // tail;
       head[0] += headDx[i];
       head[1] += headDy[i];
       tail[0] += tailDx[i];
       tail[1] += tailDy[i];
 
-      head;
-      tail;
-      count;
-      // head
-      // tail
-      visited;
       if (visited[tail[0]][tail[1]]) return;
       recur(head, tail, count + 1, visited);
     }
