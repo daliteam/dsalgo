@@ -121,3 +121,38 @@
 
   answer;
 }
+
+// 백준 15649
+
+{
+  const K = 4;
+  const N = 2;
+
+  const answer = [];
+  const rs = [];
+  const visited = Array.from(Array(K + 1), () => false);
+  let result = '';
+
+  function recur(num) {
+    if (num === N) {
+      result += rs.join('');
+      answer.push(rs);
+      return rs;
+    }
+    for (let i = 1; i < K + 1; i++) {
+      if (visited[i] === false) {
+        visited[i] = true;
+        rs.push(i);
+
+        recur(num + 1);
+        rs.pop();
+        visited[i] = false;
+      }
+    }
+  }
+
+  recur(0);
+
+  answer;
+  result;
+}
