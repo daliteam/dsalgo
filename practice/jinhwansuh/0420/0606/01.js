@@ -61,3 +61,63 @@
   count;
   maxArea;
 }
+
+// 백준 2667
+{
+  const N = 7;
+  const a1 = '0110100';
+  const a2 = '0110101';
+  const a3 = '1110101';
+  const a4 = '0000111';
+  const a5 = '0100000';
+  const a6 = '0111110';
+  const a7 = '0111000';
+
+  const graph = [];
+
+  graph.push(a1.split(''));
+  graph.push(a2.split(''));
+  graph.push(a3.split(''));
+  graph.push(a4.split(''));
+  graph.push(a5.split(''));
+  graph.push(a6.split(''));
+  graph.push(a7.split(''));
+
+  const visited = Array.from(Array(N), () => Array(N).fill(false));
+  const answer = [];
+  const dx = [0, 1, 0, -1];
+  const dy = [1, 0, -1, 0];
+
+  function bfs(i, j) {
+    let area = 1;
+    visited[i][j] = true;
+    const queue = [];
+    queue.push([i, j]);
+
+    while (queue.length > 0) {
+      const [x, y] = queue.shift();
+      for (let k = 0; k < 4; k++) {
+        const nx = x + dx[k];
+        const ny = y + dy[k];
+
+        if (nx >= 0 && nx < N && ny >= 0 && ny < N) {
+          if (graph[nx][ny] === '1' && !visited[nx][ny]) {
+            area += 1;
+            visited[nx][ny] = true;
+            queue.push([nx, ny]);
+          }
+        }
+      }
+    }
+    return area;
+  }
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      if (graph[i][j] === '1' && !visited[i][j]) {
+        answer.push(bfs(i, j));
+      }
+    }
+  }
+
+  answer;
+}
