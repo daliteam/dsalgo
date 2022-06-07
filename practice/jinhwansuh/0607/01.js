@@ -42,5 +42,23 @@
     }
     summary -= data[start];
   }
-  result;
+}
+
+// 구간 합
+{
+  const data = [10, 20, 30, 40, 50];
+
+  const prefixSum = [0];
+
+  let summary = 0;
+
+  for (const i of data) {
+    summary += i;
+    prefixSum.push(summary);
+  }
+
+  prefixSum;
+  const left = 3;
+  const right = 4;
+  console.log(prefixSum[right] - prefixSum[left - 1]);
 }
