@@ -24,7 +24,23 @@
 }
 
 {
-  const array = [10, 20, 30, 40, 50];
+  const n = 5;
+  const m = 5;
+  const data = [1, 2, 3, 2, 5];
 
-  const nums = 3;
+  let result = 0;
+  let summary = 0;
+  let end = 0;
+
+  for (let start = 0; start < data.length; start++) {
+    while (summary < m && summary < n) {
+      summary += data[end];
+      end += 1;
+    }
+    if (summary == m) {
+      result += 1;
+    }
+    summary -= data[start];
+  }
+  result;
 }
