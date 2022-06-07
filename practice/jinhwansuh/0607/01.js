@@ -12,14 +12,19 @@
   }
   prefixArray.push(pre);
 
-  let max = Math.max(prefixArray[0]);
+  let max = pre;
   for (let i = nums; i < array.length; i++) {
-    let preSum = prefixArray[i - nums];
-    preSum -= array[i - nums];
-    preSum += array[i];
-    prefixArray.push(preSum);
+    pre -= array[i - nums];
+    pre += array[i];
+    prefixArray.push(pre);
 
-    max = Math.max(max, preSum);
+    max = Math.max(max, pre);
   }
   max;
+}
+
+{
+  const array = [10, 20, 30, 40, 50];
+
+  const nums = 3;
 }
